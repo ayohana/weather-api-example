@@ -2,6 +2,7 @@ import $ from 'jquery';
 import 'bootstrap' ; 
 import 'bootstrap/dist/css/bootstrap.min.css' ; 
 import './styles.css' ;
+import { WeatherService } from '../src/weather-service';
 
 $(document).ready(function() {
   $('#weatherLocation').click(function() {
@@ -9,9 +10,9 @@ $(document).ready(function() {
     $('#location').val("");
 
     (async () => {
-      let response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.API_KEY}`)
-      let jsonifiedResponse = await response.json();
-      getElements(jsonifiedResponse);
+      let weatherService = new WeatherService();
+      const response = await weatherService.getWeatherByCity(city);
+      getElements(response);
     })();
 
     const getElements = function(response) {
