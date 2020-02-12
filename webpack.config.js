@@ -1,10 +1,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); 
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
-  entry: './src/main.js',
+  entry: './src/weather-interface.js',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist')
@@ -18,9 +19,10 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: 'Title',
-      template: './src/index.html',
+      template: './src/weather.html',
       inject: 'body'
-    })
+    }),
+    new Dotenv()
   ],
   module: {
     rules: [
