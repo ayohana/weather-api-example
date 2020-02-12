@@ -8,13 +8,11 @@ $(document).ready(function() {
     const city = $('#location').val();
     $('#location').val("");
 
-    asyncApiCall();
-
-    async function asyncApiCall(){
+    (async () => {
       let response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.API_KEY}`)
       let jsonifiedResponse = await response.json();
       getElements(jsonifiedResponse);
-    }
+    })();
 
     const getElements = function(response) {
       $('.showHumidity').text(`The humidity in ${city} is ${response.main.humidity}%`);
